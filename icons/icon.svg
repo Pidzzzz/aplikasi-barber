@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Background -->
+  <rect width="512" height="512" rx="100" fill="#1a1a2e"/>
+  
+  <!-- Gradient overlay -->
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#c9a227;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a68520;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Scissors icon -->
+  <g transform="translate(256, 256)" fill="none" stroke="url(#grad)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Left blade -->
+    <circle cx="-60" cy="60" r="30"/>
+    <line x1="-36" y1="40" x2="36" y2="-40"/>
+    
+    <!-- Right blade -->
+    <circle cx="60" cy="60" r="30"/>
+    <line x1="36" y1="40" x2="-36" y2="-40"/>
+    
+    <!-- Center -->
+    <circle cx="0" cy="0" r="15" fill="url(#grad)"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="256" y="400" text-anchor="middle" fill="#c9a227" font-family="Arial, sans-serif" font-size="36" font-weight="bold">IP MAN</text>
+  <text x="256" y="445" text-anchor="middle" fill="#c9a227" font-family="Arial, sans-serif" font-size="28" font-weight="bold">HAIRSTUDIO</text>
+</svg>

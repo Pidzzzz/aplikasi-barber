@@ -1,0 +1,23 @@
+{
+    "name": "IP MAN HAIRSTUDIO - Kasir Barber",
+    "short_name": "IP MAN HAIRSTUDIO",
+    "description": "Aplikasi kasir modern untuk barbershop",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0f0f1a",
+    "theme_color": "#1a1a2e",
+    "orientation": "any",
+    "scope": "/",
+    "lang": "id",
+    "categories": ["business", "finance"],
+    "icons": [
+        {
+            "src": "icons/icon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any"
+        }
+    ],
+    "related_applications": [],
+    "prefer_related_applications": false
+}
