@@ -578,22 +578,32 @@ function renderHistoryList() {
             </div>
             <div class="history-footer">
                 <span class="history-total">${formatCurrency(t.total)}</span>
-                ${isVoid
-                    ? `<button class="btn-unvoid" onclick="event.stopPropagation(); unVoidTransaction('${t.id}')" title="Kembalikan transaksi ini">
+                <div class="history-actions-row">
+                    ${!isVoid ? `<button class="btn-reprint" onclick="event.stopPropagation(); reprintTransaction('${t.id}')" title="Cetak ulang struk">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="1,4 1,10 7,10"/>
-                            <path d="M3.51 15a9 9 0 102.13-9.36L1 10"/>
+                            <polyline points="6,9 6,2 18,2 18,9"/>
+                            <path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/>
+                            <rect x="6" y="14" width="12" height="8"/>
                         </svg>
-                        Un-Void
-                    </button>`
-                    : `<button class="btn-void" onclick="event.stopPropagation(); voidTransaction('${t.id}')" title="Void transaksi ini">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
-                        </svg>
-                        Void
-                    </button>`
-                }
+                        Cetak
+                    </button>` : ''}
+                    ${isVoid
+                        ? `<button class="btn-unvoid" onclick="event.stopPropagation(); unVoidTransaction('${t.id}')" title="Kembalikan transaksi ini">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="1,4 1,10 7,10"/>
+                                <path d="M3.51 15a9 9 0 102.13-9.36L1 10"/>
+                            </svg>
+                            Un-Void
+                        </button>`
+                        : `<button class="btn-void" onclick="event.stopPropagation(); voidTransaction('${t.id}')" title="Void transaksi ini">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+                            </svg>
+                            Void
+                        </button>`
+                    }
+                </div>
             </div>
         </div>
     `}).join('');
@@ -702,6 +712,12 @@ function unVoidTransaction(id) {
     };
 
     document.getElementById('unvoidModal').classList.add('active');
+}
+
+function reprintTransaction(id) {
+    const transaction = state.transactions.find(t => t.id === id);
+    if (!transaction) return;
+    showReceipt(transaction);
 }
 
 function renderStats() {

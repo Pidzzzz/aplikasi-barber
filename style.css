@@ -1350,6 +1350,32 @@ body {
     color: white;
 }
 
+.history-actions-row {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.btn-reprint {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border: 1px solid var(--info);
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--info);
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-reprint:hover {
+    background: var(--info);
+    color: white;
+}
+
 .btn-danger.btn-sm {
     padding: 6px 12px;
     font-size: 0.8rem;
