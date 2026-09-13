@@ -555,9 +555,11 @@ function renderHistoryList() {
         return;
     }
     
-    elements.historyList.innerHTML = transactions.reverse().map(t => `
-        <div class="history-item" data-id="${t.id}">
-            <input type="checkbox" class="item-checkbox" data-id="${t.id}">
+    elements.historyList.innerHTML = transactions.reverse().map(t => {
+        const isVoid = t.status === 'void';
+        return `
+        <div class="history-item ${isVoid ? 'voided' : ''}" data-id="${t.id}">
+            <input type="checkbox" class="item-checkbox" data-id="${t.id}" ${isVoid ? 'disabled' : ''}>
             <div class="history-header">
                 <div class="history-header-left">
                     <span class="history-id">${t.id}</span>
@@ -576,10 +578,19 @@ function renderHistoryList() {
             </div>
             <div class="history-footer">
                 <span class="history-total">${formatCurrency(t.total)}</span>
-                <span class="history-status">Lunas</span>
+                ${isVoid
+                    ? '<span class="history-status void">VOID</span>'
+                    : `<button class="btn-void" onclick="event.stopPropagation(); voidTransaction('${t.id}')" title="Void transaksi ini">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+                        </svg>
+                        Void
+                    </button>`
+                }
             </div>
         </div>
-    `).join('');
+    `}).join('');
     
     // Checkbox events
     document.querySelectorAll('.item-checkbox').forEach(cb => {
@@ -637,14 +648,39 @@ function deleteSelectedTransactions() {
     alert(`${checkedIds.length} transaksi berhasil dihapus!`);
 }
 
+function voidTransaction(id) {
+    const transaction = state.transactions.find(t => t.id === id);
+    if (!transaction) return;
+    if (transaction.status === 'void') {
+        alert('Transaksi ini sudah di-void!');
+        return;
+    }
+
+    document.getElementById('voidModalTransactionId').textContent = id;
+    document.getElementById('voidModalItems').textContent = transaction.items.map(i => i.name).join(', ');
+    document.getElementById('voidModalTotal').textContent = formatCurrency(transaction.total);
+
+    const confirmBtn = document.getElementById('voidConfirmBtn');
+    confirmBtn.onclick = function() {
+        transaction.status = 'void';
+        localStorage.setItem('transactions', JSON.stringify(state.transactions));
+        document.getElementById('voidModal').classList.remove('active');
+        renderHistoryList();
+        renderStats();
+        alert(`Transaksi ${id} berhasil di-void!`);
+    };
+
+    document.getElementById('voidModal').classList.add('active');
+}
+
 function renderStats() {
-    // Today's stats
-    const todayTransactions = state.transactions.filter(t => isToday(t.date));
+    // Today's stats (exclude void)
+    const todayTransactions = state.transactions.filter(t => isToday(t.date) && t.status !== 'void');
     const todayRevenue = todayTransactions.reduce((sum, t) => sum + t.total, 0);
     const avgTicket = todayTransactions.length > 0 ? Math.round(todayRevenue / todayTransactions.length) : 0;
     
-    // Total stats
-    const totalRevenue = state.transactions.reduce((sum, t) => sum + t.total, 0);
+    // Total stats (exclude void)
+    const totalRevenue = state.transactions.filter(t => t.status !== 'void').reduce((sum, t) => sum + t.total, 0);
     
     elements.todayRevenue.textContent = formatCurrency(todayRevenue);
     elements.todayTransactions.textContent = todayTransactions.length;
@@ -660,7 +696,7 @@ function renderStats() {
 
 function renderPopularServices() {
     const serviceCounts = {};
-    state.transactions.forEach(t => {
+    state.transactions.filter(t => t.status !== 'void').forEach(t => {
         t.items.forEach(item => {
             if (!serviceCounts[item.name]) {
                 serviceCounts[item.name] = { count: 0, revenue: 0 };
@@ -707,8 +743,8 @@ function renderRevenueChart() {
         });
     }
     
-    // Calculate revenue per day
-    state.transactions.forEach(t => {
+    // Calculate revenue per day (exclude void)
+    state.transactions.filter(t => t.status !== 'void').forEach(t => {
         const tDate = new Date(t.date).toISOString().split('T')[0];
         const dayData = last7Days.find(d => d.date === tDate);
         if (dayData) {
@@ -879,7 +915,8 @@ function processPayment() {
         total,
         payment,
         change: payment - total,
-        customer: elements.customerName.value || 'Pelanggan'
+        customer: elements.customerName.value || 'Pelanggan',
+        status: 'lunas'
     };
     
     state.transactions.push(transaction);
@@ -910,6 +947,8 @@ function showReceipt(transaction) {
     elements.receiptDate.textContent = formatDateTime(new Date(transaction.date));
     elements.receiptCashier.textContent = transaction.customer;
     
+    const isVoid = transaction.status === 'void';
+    
     elements.receiptItems.innerHTML = transaction.items.map(item => `
         <div class="receipt-item">
             <span>${item.name} x${item.quantity}</span>
@@ -935,10 +974,24 @@ function showReceipt(transaction) {
         <p><span>Kembali:</span> <span>${formatCurrency(transaction.change)}</span></p>
     `;
     
+    if (isVoid) {
+        totalsHTML += `<p class="receipt-void-badge">*** VOID ***</p>`;
+    }
+    
     document.querySelector('.receipt-totals').innerHTML = totalsHTML;
     
     elements.receiptPayment.textContent = formatCurrency(transaction.payment);
     elements.receiptChange.textContent = formatCurrency(transaction.change);
+    
+    // Show/hide void button on receipt
+    const voidBtn = document.getElementById('voidReceiptBtn');
+    if (voidBtn) {
+        voidBtn.style.display = isVoid ? 'none' : 'inline-flex';
+        voidBtn.onclick = function() {
+            elements.receiptModal.classList.remove('active');
+            voidTransaction(transaction.id);
+        };
+    }
     
     elements.receiptModal.classList.add('active');
 }
@@ -1389,7 +1442,7 @@ function exportTransactions() {
     }
     
     const csvContent = [
-        ['ID', 'Tanggal', 'Pelanggan', 'Item', 'Subtotal', 'Total', 'Bayar', 'Kembali'],
+        ['ID', 'Tanggal', 'Pelanggan', 'Item', 'Subtotal', 'Total', 'Bayar', 'Kembali', 'Status'],
         ...state.transactions.map(t => [
             t.id,
             formatDateTime(new Date(t.date)),
@@ -1398,7 +1451,8 @@ function exportTransactions() {
             t.subtotal,
             t.total,
             t.payment,
-            t.change
+            t.change,
+            t.status === 'void' ? 'VOID' : 'Lunas'
         ])
     ].map(row => row.join(',')).join('\n');
     

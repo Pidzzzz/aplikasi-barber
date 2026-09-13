@@ -1294,6 +1294,111 @@ body {
     color: var(--success);
 }
 
+.history-status.void {
+    background: rgba(239, 68, 68, 0.2);
+    color: var(--danger);
+    text-decoration: line-through;
+}
+
+.history-item.voided {
+    opacity: 0.6;
+}
+
+.history-item.voided .history-items,
+.history-item.voided .history-total {
+    text-decoration: line-through;
+    color: var(--text-muted);
+}
+
+.btn-void {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border: 1px solid var(--danger);
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--danger);
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-void:hover {
+    background: var(--danger);
+    color: white;
+}
+
+.btn-danger.btn-sm {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+}
+
+.receipt-void-badge {
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--danger) !important;
+    margin-top: 12px;
+    letter-spacing: 2px;
+}
+
+.void-modal-content {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    max-width: 400px;
+    text-align: center;
+}
+
+.void-modal-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.void-modal-header h3 {
+    color: var(--danger);
+    font-size: 1.2rem;
+}
+
+.void-modal-body {
+    margin-bottom: 24px;
+}
+
+.void-modal-detail {
+    background: var(--bg-input);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    margin: 16px 0;
+    text-align: left;
+}
+
+.void-modal-detail p {
+    display: flex;
+    justify-content: space-between;
+    margin: 6px 0;
+    font-size: 0.85rem;
+}
+
+.void-warning {
+    color: var(--danger);
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.void-modal-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.void-modal-actions button {
+    flex: 1;
+}
+
 .empty-state {
     text-align: center;
     padding: 60px 20px;
