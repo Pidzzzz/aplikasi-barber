@@ -1500,13 +1500,12 @@ body {
 }
 
 .receipt-logo-img {
-    width: 55px;
-    height: 55px;
+    width: 50px;
+    height: 50px;
     object-fit: contain;
     display: block;
-    margin: 0 auto 4px;
+    margin: 0 auto 6px;
     background: transparent !important;
-    border-radius: 0;
     position: relative;
     z-index: 1;
 }
@@ -2577,12 +2576,12 @@ body {
     }
     
     .receipt-logo-img {
-        width: 55px !important;
-        height: 55px !important;
-        max-width: 55px !important;
-        max-height: 55px !important;
+        width: 50px !important;
+        height: 50px !important;
+        max-width: 50px !important;
+        max-height: 50px !important;
         display: block !important;
-        margin: 0 auto 4px !important;
+        margin: 0 auto 6px !important;
     }
     
     .receipt-header,
