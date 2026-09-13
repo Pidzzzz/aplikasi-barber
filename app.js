@@ -957,9 +957,15 @@ function printReceipt() {
     // Hide everything except receipt modal
     const app = document.getElementById('app');
     const successOverlay = document.getElementById('successOverlay');
+    const receiptModal = document.getElementById('receiptModal');
     
     if (app) app.style.display = 'none';
     if (successOverlay) successOverlay.style.display = 'none';
+    if (receiptModal) {
+        receiptModal.style.position = 'static';
+        receiptModal.style.background = 'none';
+        receiptModal.style.zIndex = 'auto';
+    }
     
     // Print
     window.print();
@@ -967,6 +973,11 @@ function printReceipt() {
     // Restore
     if (app) app.style.display = '';
     if (successOverlay) successOverlay.style.display = '';
+    if (receiptModal) {
+        receiptModal.style.position = '';
+        receiptModal.style.background = '';
+        receiptModal.style.zIndex = '';
+    }
 }
 
 // ============================================
