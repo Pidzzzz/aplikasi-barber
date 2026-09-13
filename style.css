@@ -1505,7 +1505,8 @@ body {
     object-fit: contain;
     display: block;
     margin: 0 auto 4px;
-    background: transparent;
+    background: transparent !important;
+    border-radius: 0;
     position: relative;
     z-index: 1;
 }
