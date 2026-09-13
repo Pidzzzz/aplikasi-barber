@@ -1058,9 +1058,13 @@ function printReceipt() {
     const app = document.getElementById('app');
     const successOverlay = document.getElementById('successOverlay');
     const receiptModal = document.getElementById('receiptModal');
+    const voidModal = document.getElementById('voidModal');
+    const unvoidModal = document.getElementById('unvoidModal');
     
     if (app) app.style.display = 'none';
     if (successOverlay) successOverlay.style.display = 'none';
+    if (voidModal) voidModal.style.display = 'none';
+    if (unvoidModal) unvoidModal.style.display = 'none';
     if (receiptModal) {
         receiptModal.style.position = 'static';
         receiptModal.style.background = 'none';
@@ -1073,6 +1077,8 @@ function printReceipt() {
     // Restore
     if (app) app.style.display = '';
     if (successOverlay) successOverlay.style.display = '';
+    if (voidModal) voidModal.style.display = '';
+    if (unvoidModal) unvoidModal.style.display = '';
     if (receiptModal) {
         receiptModal.style.position = '';
         receiptModal.style.background = '';
