@@ -1774,8 +1774,8 @@ body {
 
 .receipt-actions {
     display: flex;
-    gap: 12px;
-    padding: 16px;
+    gap: 8px;
+    padding: 12px 16px;
     border-top: 1px solid #eee;
     flex-shrink: 0;
     background: #ffffff;
@@ -1783,12 +1783,20 @@ body {
 
 .receipt-actions button {
     flex: 1;
+    min-width: 0;
+    padding: 10px 8px;
+    font-size: 0.85rem;
 }
 
 .receipt-actions .btn-secondary {
     background: #f0f0f0;
     border-color: #ccc;
     color: #333;
+}
+
+.receipt-actions .btn-sm {
+    flex: 0;
+    padding: 10px 12px;
 }
 
 /* Success Overlay */
@@ -2396,12 +2404,17 @@ body {
     }
     
     .receipt-actions {
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 6px;
     }
     
     .receipt-actions button {
-        width: 100%;
+        width: auto;
+        flex: 1;
         justify-content: center;
+        padding: 10px 6px;
+        font-size: 0.8rem;
     }
 }
 
