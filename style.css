@@ -1330,6 +1330,26 @@ body {
     color: white;
 }
 
+.btn-unvoid {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border: 1px solid var(--success);
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--success);
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-unvoid:hover {
+    background: var(--success);
+    color: white;
+}
+
 .btn-danger.btn-sm {
     padding: 6px 12px;
     font-size: 0.8rem;

@@ -579,7 +579,13 @@ function renderHistoryList() {
             <div class="history-footer">
                 <span class="history-total">${formatCurrency(t.total)}</span>
                 ${isVoid
-                    ? '<span class="history-status void">VOID</span>'
+                    ? `<button class="btn-unvoid" onclick="event.stopPropagation(); unVoidTransaction('${t.id}')" title="Kembalikan transaksi ini">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="1,4 1,10 7,10"/>
+                            <path d="M3.51 15a9 9 0 102.13-9.36L1 10"/>
+                        </svg>
+                        Un-Void
+                    </button>`
                     : `<button class="btn-void" onclick="event.stopPropagation(); voidTransaction('${t.id}')" title="Void transaksi ini">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="12" cy="12" r="10"/>
@@ -671,6 +677,31 @@ function voidTransaction(id) {
     };
 
     document.getElementById('voidModal').classList.add('active');
+}
+
+function unVoidTransaction(id) {
+    const transaction = state.transactions.find(t => t.id === id);
+    if (!transaction) return;
+    if (transaction.status !== 'void') {
+        alert('Transaksi ini bukan transaksi void!');
+        return;
+    }
+
+    document.getElementById('unvoidModalTransactionId').textContent = id;
+    document.getElementById('unvoidModalItems').textContent = transaction.items.map(i => i.name).join(', ');
+    document.getElementById('unvoidModalTotal').textContent = formatCurrency(transaction.total);
+
+    const confirmBtn = document.getElementById('unvoidConfirmBtn');
+    confirmBtn.onclick = function() {
+        transaction.status = 'lunas';
+        localStorage.setItem('transactions', JSON.stringify(state.transactions));
+        document.getElementById('unvoidModal').classList.remove('active');
+        renderHistoryList();
+        renderStats();
+        alert(`Transaksi ${id} berhasil dikembalikan!`);
+    };
+
+    document.getElementById('unvoidModal').classList.add('active');
 }
 
 function renderStats() {

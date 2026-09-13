@@ -491,6 +491,38 @@
         </div>
     </div>
 
+    <!-- Un-Void Confirmation Modal -->
+    <div class="modal" id="unvoidModal">
+        <div class="modal-content void-modal-content">
+            <div class="void-modal-header">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2">
+                    <polyline points="1,4 1,10 7,10"/>
+                    <path d="M3.51 15a9 9 0 102.13-9.36L1 10"/>
+                </svg>
+                <h3 style="color: var(--success);">Un-Void Transaksi?</h3>
+            </div>
+            <div class="void-modal-body">
+                <p>Anda yakin ingin mengembalikan transaksi ini?</p>
+                <div class="void-modal-detail">
+                    <p><span>No:</span> <span id="unvoidModalTransactionId"></span></p>
+                    <p><span>Layanan:</span> <span id="unvoidModalItems"></span></p>
+                    <p><span>Total:</span> <span id="unvoidModalTotal"></span></p>
+                </div>
+                <p style="color: var(--success); font-size: 0.8rem; font-weight: 600;">Transaksi akan kembali ke status Lunas.</p>
+            </div>
+            <div class="void-modal-actions">
+                <button class="btn-secondary" onclick="document.getElementById('unvoidModal').classList.remove('active')">Batal</button>
+                <button class="btn-primary" id="unvoidConfirmBtn" style="background: var(--success);">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="1,4 1,10 7,10"/>
+                        <path d="M3.51 15a9 9 0 102.13-9.36L1 10"/>
+                    </svg>
+                    Ya, Un-Void!
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Success Animation -->
     <div class="success-overlay" id="successOverlay">
         <div class="success-content">
