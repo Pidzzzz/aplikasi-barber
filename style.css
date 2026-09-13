@@ -1482,9 +1482,15 @@ body {
     background: #ffffff;
     color: #000000;
     max-width: 350px;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
+    max-height: 85vh;
+}
+
+.receipt-scroll {
+    overflow-y: auto;
+    flex: 1;
+    padding: 0;
 }
 
 .receipt-header {
@@ -1524,8 +1530,6 @@ body {
 
 .receipt-body {
     padding: 12px 0;
-    flex: 1;
-    overflow-y: auto;
 }
 
 .receipt-info p {
@@ -1617,10 +1621,10 @@ body {
 .receipt-actions {
     display: flex;
     gap: 12px;
-    margin-top: 20px;
-    padding-top: 16px;
+    padding: 16px;
     border-top: 1px solid #eee;
     flex-shrink: 0;
+    background: #ffffff;
 }
 
 .receipt-actions button {
@@ -2563,6 +2567,11 @@ body {
         padding: 0 !important;
         margin: 0 !important;
         box-shadow: none !important;
+        overflow: visible !important;
+        max-height: none !important;
+    }
+    
+    .receipt-scroll {
         overflow: visible !important;
     }
     
