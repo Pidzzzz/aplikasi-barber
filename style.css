@@ -2764,6 +2764,12 @@ body {
     .receipt-actions {
         display: none !important;
     }
+    
+    /* Hide all modals except receipt */
+    #voidModal,
+    #unvoidModal {
+        display: none !important;
+    }
 }
 
 /* Animations */
