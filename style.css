@@ -1500,8 +1500,8 @@ body {
 }
 
 .receipt-logo-img {
-    width: 45px;
-    height: 45px;
+    width: 55px;
+    height: 55px;
     object-fit: contain;
     display: block;
     margin: 0 auto 4px;
@@ -2576,10 +2576,10 @@ body {
     }
     
     .receipt-logo-img {
-        width: 32px !important;
-        height: 32px !important;
-        max-width: 32px !important;
-        max-height: 32px !important;
+        width: 55px !important;
+        height: 55px !important;
+        max-width: 55px !important;
+        max-height: 55px !important;
         display: block !important;
         margin: 0 auto 4px !important;
     }
