@@ -954,7 +954,19 @@ function showSuccess(transaction) {
 }
 
 function printReceipt() {
+    // Hide everything except receipt modal
+    const app = document.getElementById('app');
+    const successOverlay = document.getElementById('successOverlay');
+    
+    if (app) app.style.display = 'none';
+    if (successOverlay) successOverlay.style.display = 'none';
+    
+    // Print
     window.print();
+    
+    // Restore
+    if (app) app.style.display = '';
+    if (successOverlay) successOverlay.style.display = '';
 }
 
 // ============================================

@@ -1486,38 +1486,53 @@ body {
 
 .receipt-header {
     text-align: center;
-    padding-bottom: 16px;
+    padding-bottom: 12px;
     border-bottom: 2px dashed #ccc;
 }
 
 .receipt-logo {
-    font-size: 48px;
+    font-size: 40px;
+    display: block;
+    margin-bottom: 4px;
 }
 
 .receipt-header h2 {
     color: #1a1a2e;
-    margin: 8px 0;
+    margin: 4px 0;
+    font-size: 1.1rem;
 }
 
 .receipt-header p {
     color: #666;
-    font-size: 0.875rem;
+    font-size: 0.8rem;
+    margin: 2px 0;
 }
 
 .receipt-body {
-    padding: 16px 0;
+    padding: 12px 0;
 }
 
 .receipt-info p {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 8px;
-    font-size: 0.9rem;
+    margin-bottom: 6px;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.receipt-info span:first-child {
+    color: #666;
+}
+
+.receipt-info span:last-child {
+    font-weight: 500;
+    text-align: right;
+    word-break: break-word;
 }
 
 .receipt-divider {
     border-top: 2px dashed #ccc;
-    margin: 16px 0;
+    margin: 10px 0;
 }
 
 .receipt-items {
@@ -1527,22 +1542,43 @@ body {
 .receipt-item {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 8px;
-    font-size: 0.9rem;
+    margin-bottom: 6px;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.receipt-item span:first-child {
+    flex: 1;
+    padding-right: 10px;
+}
+
+.receipt-item span:last-child {
+    white-space: nowrap;
+    font-weight: 500;
 }
 
 .receipt-totals p {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 8px;
-    font-size: 0.9rem;
+    margin-bottom: 6px;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.receipt-totals span:first-child {
+    color: #666;
+}
+
+.receipt-totals span:last-child {
+    font-weight: 500;
 }
 
 .receipt-total {
     font-weight: 700;
-    font-size: 1.1rem !important;
+    font-size: 1rem !important;
     padding-top: 8px;
     border-top: 1px solid #ccc;
+    margin-top: 4px;
 }
 
 .receipt-discount {
@@ -1552,10 +1588,14 @@ body {
 
 .receipt-footer {
     text-align: center;
-    padding-top: 16px;
+    padding-top: 12px;
     border-top: 2px dashed #ccc;
     color: #666;
-    font-size: 0.875rem;
+    font-size: 0.8rem;
+}
+
+.receipt-footer p {
+    margin: 2px 0;
 }
 
 .receipt-actions {
@@ -2447,50 +2487,77 @@ body {
 
 /* Print Styles */
 @media print {
-    body {
-        background: white;
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
     }
     
+    body {
+        background: white;
+        margin: 0;
+        padding: 0;
+    }
+    
+    /* Hide everything except receipt */
+    .splash,
+    .app,
     .header,
     .sidebar,
     .sidebar-overlay,
-    .order-section,
-    .back-btn,
-    .menu-btn,
-    .export-banner,
-    .history-actions,
-    .item-checkbox,
-    .receipt-actions {
+    .main-content,
+    .floating-cart-btn,
+    .order-panel-overlay,
+    .success-overlay {
         display: none !important;
     }
     
-    .main-content {
-        padding: 0;
-    }
-    
-    .page {
-        display: block !important;
-    }
-    
-    #riwayatPage {
-        display: none !important;
-    }
-    
-    .receipt {
-        max-width: 100%;
-        box-shadow: none;
-        margin: 0;
-        padding: 20px;
-    }
-    
+    /* Show only modal */
     .modal {
-        position: static;
-        background: none;
+        position: static !important;
+        background: none !important;
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        z-index: auto !important;
+        width: 100% !important;
+        height: auto !important;
+        padding: 0 !important;
+        margin: 0 !important;
     }
     
     .modal-content {
-        box-shadow: none;
-        padding: 0;
+        background: white !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        max-height: none !important;
+        transform: none !important;
+    }
+    
+    .receipt {
+        background: white !important;
+        color: black !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+    }
+    
+    .receipt-header,
+    .receipt-body,
+    .receipt-footer {
+        border-color: #333 !important;
+    }
+    
+    .receipt-divider {
+        border-color: #333 !important;
+    }
+    
+    .receipt-actions {
+        display: none !important;
     }
 }
 
