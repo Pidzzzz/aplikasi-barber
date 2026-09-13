@@ -1490,6 +1490,15 @@ body {
     border-bottom: 2px dashed #ccc;
 }
 
+.receipt-logo-img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto 6px;
+    border-radius: 8px;
+}
+
 .receipt-logo {
     font-size: 40px;
     display: block;
